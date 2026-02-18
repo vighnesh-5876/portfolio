@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vighnesh Sonawale | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0c111b;
+      --text: #ffffff;
+      --muted: #9aa4b2;
+      --accent: #4f8cff;
+      --glass: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --highlight: rgba(255,255,255,0.12);
+    }
+
+    body.light {
+      --bg: #eef2f7;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #2563eb;
+      --glass: rgba(255,255,255,0.6);
+      --border: rgba(0,0,0,0.08);
+      --highlight: rgba(255,255,255,0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.6s cubic-bezier(.4,0,.2,1), color 0.6s;
+      cursor: none;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(79, 140, 255, 0.4) transparent;
+    }
+
+    body.light {
+      scrollbar-color: rgba(37, 99, 235, 0.35) transparent;
+    }
+
+    /* Disable custom cursor on mobile */
+    @media (max-width: 768px) {
+      body {
+        cursor: auto;
+      }
+      .cursor,
+      .bio-invert-layer {
+        display: none !important;
+      }
+    }
+    }
+
+    /* ===== PREMIUM SCROLLBAR ===== */
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(79, 140, 255, 0.4);
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+      transition: background 0.3s ease;
+    }
+
+    body.light ::-webkit-scrollbar-thumb {
+      background: rgba(37, 99, 235, 0.35);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(79, 140, 255, 0.7);
+    }
+
+    body.light ::-webkit-scrollbar-thumb:hover {
+      background: rgba(37, 99, 235, 0.6);
+    }
+    }
+
+    /* ===== BACKGROUND ===== */
+
+    .bg-gradient {
+      position: fixed;
+      inset: -20%;
+      background: radial-gradient(circle at 20% 30%, rgba(79,140,255,0.15), transparent 45%),
+                  radial-gradient(circle at 80% 70%, rgba(147,51,234,0.15), transparent 50%),
+                  radial-gradient(circle at 50% 50%, rgba(37,99,235,0.08), transparent 65%);
+      animation: gradientShift 30s ease-in-out infinite alternate;
+      z-index: -3;
+    }
+
+    @keyframes gradientShift {
+      0% { transform: translate3d(0,0,0) scale(1); }
+      100% { transform: translate3d(-3%, 3%, 0) scale(1.05); }
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+      animation: gridMove 60s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes gridMove {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 80px 80px, 80px 80px; }
+    }
+
+    /* ===== CUSTOM CURSOR ===== */
+
+    .cursor {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      backdrop-filter: blur(6px);
+      background: var(--glass);
+      border: 1px solid var(--border);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s linear;
+      z-index: 10000;
+    }
+
+    /* ===== GLASS ===== */
+
+    .glass {
+      backdrop-filter: blur(22px) saturate(150%);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      background: rgba(255,255,255,0.035);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .glass::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(140deg, var(--highlight) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ===== LAYOUT ===== */
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 80px 40px;
+      gap: 80px;
+      position: relative;
+    }
+
+    @media (min-width: 1024px) {
+      .layout {
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+      }
+    }
+
+    /* ===== SIDE BIO ===== */
+
+    .side-bio {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-bio span {
+      display: block;
+      color: var(--muted);
+      font-weight: 400;
+      font-size: clamp(16px, 1.4vw, 18px);
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+
+    /* Negative circular hover layer */
+
+    .bio-invert-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 2;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.35s cubic-bezier(.4,0,.2,1),
+                  transform 0.65s cubic-bezier(.22,1,.36,1);
+    }
+
+    /* ===== MAIN CARD ===== */
+
+    .main-card {
+      padding: 40px;
+      border-radius: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Bring profile image to absolute front without moving it */
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      position: relative;
+      z-index: 9999;
+    }
+
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .tagline { font-size: 14px; color: var(--muted); margin-bottom: 30px; }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    }
+
+    .btn.glass:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+
+    /* ===== DOWNLOAD ANIMATION ===== */
+
+    .download-progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--accent);
+      transition: width 1.2s cubic-bezier(.22,1,.36,1);
+    }
+
+    .btn.downloading {
+      pointer-events: none;
+    }
+
+    .btn.downloading .download-progress {
+      width: 100%;
+    }
+
+    .btn.downloading .btn-text {
+      opacity: 0.6;
+    }
+
+    
+
+    footer { margin-top: 30px; font-size: 12px; color: var(--muted); }
+
+    /* ===== CONTACT MODAL ===== */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 8000;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      width: 90%;
+      max-width: 520px;
+      padding: 40px;
+      border-radius: 28px;
+      transform: translateY(40px) scale(0.95);
+      transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+      position: relative;
+    }
+
+    /* ===== POPUP GLASS BLUR CONTROL ===== */
+    /* Adjust the blur amount below (currently 28px) to increase/decrease popup glass intensity */
+    .modal-box.glass {
+      backdrop-filter: blur(28px) saturate(160%); /* 🔧 CHANGE BLUR VALUE HERE */
+      -webkit-backdrop-filter: blur(28px) saturate(160%); /* 🔧 CHANGE BLUR VALUE HERE */
+    }
+    }
+
+    .modal-overlay.active .modal-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-box h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .modal-box input,
+    .modal-box textarea {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      outline: none;
+      backdrop-filter: blur(16px);
+    }
+
+    .modal-box textarea {
+      resize: none;
+      min-height: 120px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .close-modal:hover {
+      opacity: 1;
+    }
+
+    /* ===== CERTIFICATE CAROUSEL ===== */
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+    }
+
+    .certificate-card {
+      min-width: 100%;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .certificate-card img {
+      width: 100%;
+      border-radius: 18px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .certificate-card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .certificate-meta {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 18px;
+    }
+
+    .carousel-nav button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: background 0.3s ease;
+    }
+
+    .carousel-nav button:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ===== PROJECT MODAL ===== */
+
+    .project-list {
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .project-item {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 16px;
+      backdrop-filter: blur(18px);
+      transition: background 0.3s ease;
+    }
+
+    .project-item:hover {
+      background: rgba(255,255,255,0.07);
+    }
+
+    .project-item img {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .project-item h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .project-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .project-item p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .project-link {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ===== SOCIAL ICONS ===== */
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 10px 0 28px 0;
+    }
+
+    .social-icons a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(18px) saturate(160%);
+      background: rgba(255,255,255,0.03);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: rgba(255,255,255,0.08);
+      transform: scale(1.08);
+    }
+
+    .social-icons svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ===== TOGGLE ===== */
+
+    .theme-toggle {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      width: 90px;
+      height: 46px;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 5000;
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: left 0.5s cubic-bezier(.4,0,.2,1);
+    }
+
+    body.light .toggle-thumb { left: 48px; }
+
+  </style>
+</head>
+<body>
+
+  <div class="bg-gradient"></div>
+  <div class="bg-grid"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="bio-invert-layer" id="invertLayer"></div>
+
+  <div class="theme-toggle glass" onclick="toggleTheme()">
+    <div class="toggle-thumb glass">
+      <span class="toggle-icon">🌙</span>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <div class="side-bio" id="sideBio">
+      Building clean, scalable
+      digital experiences.
+      <span>
+        Focused on modern web architecture, performance optimization,
+        and minimal UI systems crafted with precision.
+      </span>
+    </div>
+
+    <div class="main-card glass">
+      <img src="profile.jpg" alt="Profile" class="profile-img">
+      <h1>Vighnesh Sonawale</h1>
+      <div class="tagline">Web Developer | Software Engineer</div>
+
+      <div class="social-icons">
+        <a href="https://github.com/vighnesh-5876/" target="_blank" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.54-3.88-1.54-.52-1.32-1.28-1.67-1.28-1.67-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.45.11-3.02 0 0 .97-.31 3.18 1.18a11.1 11.1 0 012.9-.39c.98 0 1.97.13 2.9.39 2.21-1.49 3.18-1.18 3.18-1.18.63 1.57.23 2.73.11 3.02.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.41-5.27 5.69.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .3.21.66.79.55A11.52 11.52 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/vighnesh_5876/" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.2.15 4.7 1.66 4.86 4.86.07 1.3.07 1.7.07 4.87s0 3.57-.07 4.87c-.15 3.2-1.66 4.7-4.86 4.86-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-3.2-.15-4.7-1.66-4.86-4.86C2.2 15.57 2.2 15.17 2.2 12s0-3.57.07-4.87C2.42 3.93 3.93 2.42 7.13 2.27 8.43 2.2 8.83 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.77.07-2.39.11-3.49 1.21-3.6 3.6-.07 1.25-.07 1.62-.07 4.33s0 3.08.07 4.33c.11 2.39 1.21 3.49 3.6 3.6 1.25.07 1.62.07 4.77.07s3.52 0 4.77-.07c2.39-.11 3.49-1.21 3.6-3.6.07-1.25.07-1.62.07-4.33s0-3.08-.07-4.33c-.11-2.39-1.21-3.49-3.6-3.6-1.25-.07-1.62-.07-4.77-.07zm0 3.3a4.7 4.7 0 110 9.4 4.7 4.7 0 010-9.4zm0 1.8a2.9 2.9 0 100 5.8 2.9 2.9 0 000-5.8zm4.9-.9a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/vighnesh.sonawale.56" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.7-1.6 1.5V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg>
+        </a>
+        <a href="https://x.com/vighnesh_5876" target="_blank" aria-label="X">
+          <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.9l-5.4-6.9L4.7 22H1.6l8-9.2L1 2h7l4.9 6.3L18.9 2z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@vighnesh_5876" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.7 3.6 12 3.6 12 3.6s-7.7 0-9.4.5A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.1c1.7.5 9.4.5 9.4.5s7.7 0 9.4-.5a3 3 0 002.1-2.1A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg>
+        </a>
+      </div>
+
+      <a href="Vighnesh Sonawale Resume.pdf" class="btn glass" id="resumeBtn" download>
+        <span class="btn-text">Download Resume</span>
+        <span class="download-progress"></span>
+      </a>
+      <a href="#" class="btn glass" id="projectBtn">View Projects</a>
+      <a href="#" class="btn glass" id="certBtn">Certificates</a>
+      <a href="#" class="btn glass" id="contactBtn">Contact</a>
+
+      <footer>© 2026 Vighnesh Sonawale</footer>
+    </div>
+
+  </div>
+
+  <!-- CONTACT MODAL -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-box glass">
+      <div class="close-modal" id="closeModal">✕</div>
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <input type="hidden" name="access_key" value="2f536c27-497c-471e-b30f-157244dc9f26">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn glass" id="submitBtn">
+          <span class="btn-text">Send Message</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CERTIFICATE MODAL -->
+  <div class="modal-overlay" id="certModal">
+    <div class="modal-box glass">
+      <div class="close-modal" id="closeCertModal">✕</div>
+      <h2>Certificates</h2>
+
+      <div class="carousel">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+
+      <div class="carousel-nav">
+        <button id="prevCert">‹</button>
+        <button id="nextCert">›</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-box glass">
+      <div class="close-modal" id="closeProjectModal">✕</div>
+      <h2>Projects</h2>
+
+      <div class="project-list" id="projectList"></div>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      const icon = document.querySelector('.toggle-icon');
+      icon.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+    }
+
+    const cursor = document.getElementById('cursor');
+    const invertLayer = document.getElementById('invertLayer');
+    const bio = document.getElementById('sideBio');
+
+    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+
+    if (isDesktop) {
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+
+        invertLayer.style.background = `radial-gradient(circle 140px at ${e.clientX}px ${e.clientY}px, white 0%, white 100%, transparent 100%)`;
+      });
+
+      bio.addEventListener('mouseenter', () => {
+        invertLayer.style.opacity = '1';
+        invertLayer.style.transform = 'scale(1)';
+      });
+
+      bio.addEventListener('mouseleave', () => {
+        invertLayer.style.opacity = '0';
+        invertLayer.style.transform = 'scale(0.6)';
+      });
+    }
+
+    // Contact Modal Logic
+    const contactBtn = document.getElementById('contactBtn');
+    const contactModal = document.getElementById('contactModal');
+    const closeModal = document.getElementById('closeModal');
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    contactBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      contactModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', () => {
+      contactModal.classList.remove('active');
+    });
+
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) contactModal.classList.remove('active');
+    });
+
+    // Web3Forms Integration
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const submitBtnText = submitBtn.querySelector('.btn-text');
+      const originalText = submitBtnText.textContent;
+
+      try {
+        submitBtn.disabled = true;
+        submitBtnText.textContent = 'Sending...';
+
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          submitBtnText.textContent = '✓ Message Sent!';
+          submitBtn.style.background = 'rgba(79, 140, 255, 0.3)';
+          
+          setTimeout(() => {
+            // Reset form
+            contactForm.reset();
+            submitBtnText.textContent = originalText;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+            
+            // Close modal after 2 seconds
+            contactModal.classList.remove('active');
+          }, 2000);
+        } else {
+          submitBtnText.textContent = '✗ Failed';
+          submitBtn.style.background = 'rgba(255, 100, 100, 0.3)';
+          submitBtn.disabled = false;
+          
+          setTimeout(() => {
+            submitBtnText.textContent = originalText;
+            submitBtn.style.background = '';
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        submitBtnText.textContent = '✗ Error';
+        submitBtn.style.background = 'rgba(255, 100, 100, 0.3)';
+        submitBtn.disabled = false;
+        
+        setTimeout(() => {
+          submitBtnText.textContent = originalText;
+          submitBtn.style.background = '';
+        }, 2000);
+      }
+    });
+
+    // ===== CERTIFICATE DATA =====
+
+    const certificates = [
+      {
+        image: 'Certificates/JavaScript.png',
+        title: 'JavaScript',
+        from: 'SoloLearn',
+        date: '2024'
+      },
+        {
+            image: 'Certificates/HTML.png',
+            title: 'HTML',
+            from: 'SoloLearn',
+            date: '2023'
+        },
+        {
+            image: 'Certificates/CSS.png',
+            title: 'CSS',
+            from: 'SoloLearn',
+            date: '2024'
+        },
+        {
+            image: 'Certificates/SEOwithAI.png',
+            title: 'SEO with AI',
+            from: 'SoloLearn',
+            date: '2024'
+        },
+        {
+            image: 'Certificates/SMM.png',
+            title: 'Social Media Marketing with AI',
+            from: 'SoloLearn',
+            date: '2023'
+        },
+        {
+            image: 'Certificates/Excel.png',
+            title: 'Advanced Excel',
+            from: 'Udemy',
+            date: '2026'
+        }
+    ];
+
+    const certBtn = document.getElementById('certBtn');
+    const certModal = document.getElementById('certModal');
+    const closeCertModal = document.getElementById('closeCertModal');
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevCert');
+    const nextBtn = document.getElementById('nextCert');
+
+    let currentIndex = 0;
+
+    function renderCertificates() {
+      track.innerHTML = '';
+      certificates.forEach(cert => {
+        const card = document.createElement('div');
+        card.className = 'certificate-card';
+        card.innerHTML = `
+          ${cert.image ? `<img src="${cert.image}" alt="${cert.title || ''}">` : ''}
+          ${cert.title ? `<h3>${cert.title}</h3>` : ''}
+          ${(cert.from || cert.date) ? `<div class="certificate-meta">${cert.from || ''}${cert.from && cert.date ? ' • ' : ''}${cert.date || ''}</div>` : ''}
+        `;
+        track.appendChild(card);
+      });
+    }
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    certBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      renderCertificates();
+      updateCarousel();
+      certModal.classList.add('active');
+    });
+
+    closeCertModal.addEventListener('click', () => {
+      certModal.classList.remove('active');
+    });
+
+    certModal.addEventListener('click', (e) => {
+      if (e.target === certModal) certModal.classList.remove('active');
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + certificates.length) % certificates.length;
+      updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % certificates.length;
+      updateCarousel();
+    });
+
+    // ===== PROJECT DATA =====
+
+    const projects = [
+      {
+        image: 'projects/qwiktech.png',
+        title: 'QwikTech Website',
+        link: 'https://qwiktech.in',
+        date: '2025',
+        description: 'A responsive, modern website built for QwikTech, showcasing their services and portfolio with a sleek design.'
+      },
+        {
+            image: 'projects/keyfitness.png',
+            title: 'Key Fitness - Gym Website',
+            link: 'https://keyfitness.pages.dev/',
+            date: '2024',
+            description: 'A dynamic website for Key Fitness gym, featuring class schedules, trainer profiles, and membership options.'
+        },
+        {
+            image: 'projects/qwikcalculate.png',
+            title: 'QwikCalculate - Financial Calculator',
+            link: 'https://qwikcalculate.netlify.app/',
+            date: '2024',
+            description: 'A minimalist financial calculator application with a clean UI and intuitive functionality.'
+        },
+            {
+                image: 'projects/digitalmenu.png',
+                title: 'Restaurant QR Menu',
+                link: 'https://restaurantqrmenuui.netlify.app/',
+                date: '2024',
+                description: 'A sleek and modern digital menu solution for restaurants, allowing customers to browse and order via QR codes.'
+            },
+                {
+                    image: 'projects/watertankcleaning.png',
+                    title: 'Mauli Water Tank Cleaning',
+                    link: 'https://mauliwatercleaning.netlify.app/',
+                    date: '2026',
+                    description: 'A professional website for a water tank cleaning service, showcasing their services and customer testimonial6.'
+                }
+    ];
+
+    const projectBtn = document.getElementById('projectBtn');
+    const projectModal = document.getElementById('projectModal');
+    const closeProjectModal = document.getElementById('closeProjectModal');
+    const projectList = document.getElementById('projectList');
+
+    function renderProjects() {
+      projectList.innerHTML = '';
+
+      projects.forEach(project => {
+        const item = document.createElement('div');
+        item.className = 'project-item';
+
+        item.innerHTML = `
+          ${project.image ? `<img src="${project.image}" alt="${project.title || ''}">` : ''}
+          ${project.title ? `<h3>${project.title}</h3>` : ''}
+          ${project.date ? `<div class="project-meta">${project.date}</div>` : ''}
+          ${project.description ? `<p>${project.description}</p>` : ''}
+          ${project.link ? `<a href="${project.link}" target="_blank" class="project-link">View Project →</a>` : ''}
+        `;
+
+        projectList.appendChild(item);
+      });
+    }
+
+    projectBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      renderProjects();
+      projectModal.classList.add('active');
+    });
+
+    closeProjectModal.addEventListener('click', () => {
+      projectModal.classList.remove('active');
+    });
+
+    projectModal.addEventListener('click', (e) => {
+      if (e.target === projectModal) projectModal.classList.remove('active');
+    });
+
+    // ===== RESUME DOWNLOAD ANIMATION =====
+
+    const resumeBtn = document.getElementById('resumeBtn');
+
+    resumeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (resumeBtn.classList.contains('downloading')) return;
+
+      resumeBtn.classList.add('downloading');
+
+      setTimeout(() => {
+        resumeBtn.classList.remove('downloading');
+        
+
+        // trigger actual download
+        const link = document.createElement('a');
+        link.href = 'Vighnesh Sonawale Resume.pdf';
+        link.download = 'Vighnesh Sonawale Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        
+
+      }, 1200);
+    });('click', () => {
+      currentIndex = (currentIndex + 1) % certificates.length;
+      updateCarousel();
+    });
+
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) {
+        contactModal.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
