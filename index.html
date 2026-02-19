@@ -122,6 +122,104 @@
       z-index: -2;
     }
 
+    /* ===== GRAVITY SKILLS FLOOR ===== */
+
+    .gravity-skills {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: visible;
+    }
+
+    .gravity-floor {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      height: 42px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.035);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .gravity-skill {
+      position: absolute;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px) saturate(140%);
+      color: var(--muted);
+      white-space: nowrap;
+      pointer-events: auto;
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.15s linear;
+      will-change: transform;
+    }
+
+    .gravity-skill:active {
+      cursor: grabbing;
+    }
+
+    body.light .gravity-skill {
+      background: rgba(255,255,255,0.6);
+    }
+
+    /* ===== FLOATING SKILLS BACKGROUND ===== */
+
+    .floating-skills {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .floating-skill {
+      position: absolute;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px);
+      color: var(--muted);
+      white-space: nowrap;
+      animation: floatSkill linear infinite;
+      opacity: 0.35;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .floating-skill:hover {
+      opacity: 0.8;
+      transform: scale(1.08);
+    }
+
+    @keyframes floatSkill {
+      0% {
+        transform: translateY(110vh) translateX(0);
+      }
+      100% {
+        transform: translateY(-120vh) translateX(40px);
+      }
+    }
+
+    body.light .floating-skill {
+      background: rgba(255,255,255,0.5);
+      color: var(--muted);
+      opacity: 0.25;
+    }
+
     @keyframes gridMove {
       from { background-position: 0 0, 0 0; }
       to { background-position: 80px 80px, 80px 80px; }
@@ -758,7 +856,10 @@
   <div class="bg-gradient"></div>
   <div class="bg-grid"></div>
   <div class="cursor" id="cursor"></div>
+  <div class="floating-skills" id="floatingSkills"></div>
   <div class="bio-invert-layer" id="invertLayer"></div>
+  <div class="gravity-floor"></div>
+  <div class="gravity-skills" id="gravitySkills"></div>
 
   <div class="theme-toggle glass" onclick="toggleTheme()">
     <div class="toggle-thumb glass">
@@ -971,37 +1072,37 @@
 
     const certificates = [
       {
-        image: 'Certificates/JavaScript.png',
+        image: 'Certificates/JavaScript.webp',
         title: 'JavaScript',
         from: 'SoloLearn',
         date: '2025'
       },
         {
-            image: 'Certificates/HTML.png',
+            image: 'Certificates/HTML.webp',
             title: 'HTML',
             from: 'SoloLearn',
             date: '2024'
         },
         {
-            image: 'Certificates/CSS.png',
+            image: 'Certificates/CSS.webp',
             title: 'CSS',
             from: 'SoloLearn',
             date: '2025'
         },
         {
-            image: 'Certificates/SEOwithAI.png',
+            image: 'Certificates/SEOwithAI.webp',
             title: 'SEO with AI',
             from: 'SoloLearn',
             date: '2025'
         },
         {
-            image: 'Certificates/SMM.png',
+            image: 'Certificates/SMM.webp',
             title: 'Social Media Marketing with AI',
             from: 'SoloLearn',
             date: '2025'
         },
         {
-            image: 'Certificates/Excel.png',
+            image: 'Certificates/Excel.webp',
             title: 'Advanced Excel',
             from: 'Udemy',
             date: '2026'
@@ -1064,35 +1165,35 @@
 
     const projects = [
       {
-        image: 'projects/qwiktech.png',
+        image: 'projects/qwiktech.webp',
         title: 'QwikTech Website',
         link: 'https://qwiktech.in',
         date: '2025',
         description: 'A responsive, modern website built for QwikTech, showcasing their services and portfolio with a sleek design.'
       },
         {
-            image: 'projects/keyfitness.png',
+            image: 'projects/keyfitness.webp',
             title: 'Key Fitness - Gym Website',
             link: 'https://keyfitness.pages.dev/',
             date: '2024',
             description: 'A dynamic website for Key Fitness gym, featuring class schedules, trainer profiles, and membership options.'
         },
         {
-            image: 'projects/qwikcalculate.png',
+            image: 'projects/qwikcalculate.webp',
             title: 'QwikCalculate - Financial Calculator',
             link: 'https://qwikcalculate.netlify.app/',
             date: '2024',
             description: 'A minimalist financial calculator application with a clean UI and intuitive functionality.'
         },
             {
-                image: 'projects/digitalmenu.png',
+                image: 'projects/digitalmenu.webp',
                 title: 'Restaurant QR Menu',
                 link: 'https://restaurantqrmenuui.netlify.app/',
                 date: '2024',
                 description: 'A sleek and modern digital menu solution for restaurants, allowing customers to browse and order via QR codes.'
             },
                 {
-                    image: 'projects/watertankcleaning.png',
+                    image: 'projects/watertankcleaning.webp',
                     title: 'Mauli Water Tank Cleaning',
                     link: 'https://mauliwatercleaning.netlify.app/',
                     date: '2026',
@@ -1139,6 +1240,187 @@
     });
 
     // ===== RESUME DOWNLOAD ANIMATION =====
+
+    // ===== FLOATING SKILLS BACKGROUND SYSTEM =====
+
+    const floatingSkillsData = [
+      'HTML','CSS','JavaScript','Responsive UI','UI/UX','Git','GitHub','SEO',
+      'Performance','REST APIs','Firebase','Netlify',
+      'Problem Solving','Creativity','Communication','Adaptability','Fast Learner'
+    ];
+
+    const floatingContainer = document.getElementById('floatingSkills');
+
+    function createFloatingSkill(text, index) {
+      const el = document.createElement('div');
+      el.className = 'floating-skill';
+      el.textContent = text;
+
+      const left = Math.random() * 100;
+      const duration = 18 + Math.random() * 18;
+      const delay = Math.random() * -20;
+
+      el.style.left = left + 'vw';
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = delay + 's';
+
+      floatingContainer.appendChild(el);
+    }
+
+    floatingSkillsData.forEach((skill, i) => {
+      createFloatingSkill(skill, i);
+    });
+
+    // ===== GRAVITY SKILLS PHYSICS SYSTEM =====
+
+    const gravityContainer = document.getElementById('gravitySkills');
+
+    const gravitySkillsData = [
+      'HTML','CSS','JavaScript','UI/UX','Git','GitHub','SEO','Performance',
+      'REST APIs','Firebase','Netlify','Problem Solving','Creativity','Communication',
+      'React','Node.js','MongoDB','Figma','Adobe XD','Design','Backend','Frontend',
+      'Full Stack','Mobile','API Design','Testing','Debugging','DevOps','Cloud',
+      'Docker','AWS','Optimization','Analytics','Deployment','Security','SQL'
+    ];
+
+    const gravityItems = [];
+
+    const FLOOR_MARGIN = 12;
+    const FLOOR_HEIGHT = 42;
+
+    function getFloorY() {
+      return window.innerHeight - FLOOR_MARGIN - FLOOR_HEIGHT;
+    }
+
+    gravitySkillsData.forEach((skill, i) => {
+      const el = document.createElement('div');
+      el.className = 'gravity-skill';
+      el.textContent = skill;
+
+      gravityContainer.appendChild(el);
+
+      gravityItems.push({
+        el,
+        x: Math.random() * window.innerWidth,
+        y: -Math.random() * 200,
+        vx: (Math.random() - 0.5) * 1,
+        vy: 0,
+        width: el.offsetWidth,
+        height: el.offsetHeight,
+        prevX: null,
+        prevY: null
+      });
+    });
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let draggedItem = null;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (draggedItem) {
+        draggedItem.x = mouseX - draggedItem.width / 2;
+        draggedItem.y = mouseY - draggedItem.height / 2;
+      }
+    });
+
+    document.addEventListener('mousedown', e => {
+      for (let item of gravityItems) {
+        const rect = item.el.getBoundingClientRect();
+        if (mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom) {
+          draggedItem = item;
+          item.prevX = item.x;
+          item.prevY = item.y;
+          break;
+        }
+      }
+    });
+
+    document.addEventListener('mouseup', e => {
+      if (draggedItem) {
+        draggedItem.vx = (draggedItem.x - draggedItem.prevX) * 0.8;
+        draggedItem.vy = (draggedItem.y - draggedItem.prevY) * 0.8;
+        draggedItem.prevX = null;
+        draggedItem.prevY = null;
+        draggedItem = null;
+      }
+    });
+
+    function updateGravitySkills() {
+      const floor = getFloorY();
+
+      gravityItems.forEach(item => {
+        const rect = item.el.getBoundingClientRect();
+
+        item.width = rect.width;
+        item.height = rect.height;
+
+        if (!draggedItem || draggedItem !== item) {
+          item.vy += 0.15;
+        }
+
+        item.vx *= 0.98;
+        item.vy *= 0.98;
+
+        item.x += item.vx;
+        item.y += item.vy;
+
+        if (item.y + item.height > floor) {
+          item.y = floor - item.height;
+
+          if (Math.abs(item.vy) > 0.25) {
+            item.vy *= -0.15;
+          } else {
+            item.vy = 0;
+          }
+
+          item.vx *= 0.90;
+        }
+
+        if (item.x < 0) {
+          item.x = 0;
+          item.vx *= -0.5;
+        }
+        if (item.x + item.width > window.innerWidth) {
+          item.x = window.innerWidth - item.width;
+          item.vx *= -0.5;
+        }
+
+        for (let other of gravityItems) {
+          if (item === other) continue;
+
+          const dx = (other.x + other.width / 2) - (item.x + item.width / 2);
+          const dy = (other.y + other.height / 2) - (item.y + item.height / 2);
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const minDist = (item.width + other.width) / 2 + 4;
+
+          if (dist < minDist) {
+            const angle = Math.atan2(dy, dx);
+            const overlap = minDist - dist;
+
+            item.x -= Math.cos(angle) * overlap / 2;
+            item.y -= Math.sin(angle) * overlap / 2;
+            other.x += Math.cos(angle) * overlap / 2;
+            other.y += Math.sin(angle) * overlap / 2;
+
+            const tempVx = item.vx;
+            const tempVy = item.vy;
+            item.vx = other.vx * 0.8;
+            item.vy = other.vy * 0.8;
+            other.vx = tempVx * 0.8;
+            other.vy = tempVy * 0.8;
+          }
+        }
+
+        item.el.style.transform = `translate(${item.x}px, ${item.y}px)`;
+      });
+
+      requestAnimationFrame(updateGravitySkills);
+    }
+
+    updateGravitySkills();
 
     const resumeBtn = document.getElementById('resumeBtn');
 
